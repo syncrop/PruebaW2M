@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { map, take } from 'rxjs/operators';
 import { SuperHeroService } from './shared/services/super-hero-service.service';
 
 @Component({
@@ -9,17 +9,7 @@ import { SuperHeroService } from './shared/services/super-hero-service.service';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'pruebaw2m';
-
-  constructor(
-
-  ){}
-
-  ngOnInit(){
-
-  }
-
-  setSuperHero(){}
+  constructor(){}
 
 }
 
