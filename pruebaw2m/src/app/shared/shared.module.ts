@@ -6,6 +6,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import {MatIconModule} from '@angular/material/icon';
 import { SureDialogComponent } from './components/sure-dialog/sure-dialog.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [SuperheroFormComponent, SureDialogComponent],
@@ -14,7 +15,8 @@ import { SureDialogComponent } from './components/sure-dialog/sure-dialog.compon
     FormsModule,
     MatInputModule,
     MatButtonModule,
-    MatIconModule
+    MatIconModule,
+    ReactiveFormsModule
   ],
   exports:[SuperheroFormComponent, SureDialogComponent],
   providers:[]

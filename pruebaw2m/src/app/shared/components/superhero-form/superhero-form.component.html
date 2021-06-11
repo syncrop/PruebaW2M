@@ -1,9 +1,32 @@
-<p>
-  <mat-form-field appearance="outline">
-    <mat-label>Nuevo SuperHeroe</mat-label>
-    <input matInput placeholder="SuperHeroe">
-  </mat-form-field>
-  <button mat-icon-button color="primary" aria-label="add">
-    <mat-icon>add_circle_outline</mat-icon>
-  </button>
-</p>
+<form [formGroup]="form" (ngSubmit)="addName()">
+<div class="row">
+    <div class="col"></div>
+    <div class="col">
+      <mat-form-field appearance="outline">
+        <mat-label>Nombre SuperHeroe</mat-label>
+        <input formControlName="name" id="name" matInput placeholder="Nombre" #superHero.name [(ngModel)]="superHero.name">
+      </mat-form-field>
+    </div>
+    <div class="col"></div>
+  </div>
+  <div class="row">
+    <div class="col"></div>
+    <div class="col">
+      <mat-form-field appearance="outline">
+        <mat-label>Descripcion SuperHeroe</mat-label>
+        <input matInput placeholder="Descripcion" #superHero.description formControlName="description" [(ngModel)]="superHero.description">
+      </mat-form-field>
+    </div>
+    <div class="col"></div>
+  </div>
+  <div class="row">
+    <div class="col"></div>
+    <div class="col">
+      <button type="submit" mat-icon-button color="primary" aria-label="add" [disabled]="!form.valid">
+        <mat-icon>add_circle_outline</mat-icon>
+      </button>
+    </div>
+    <div class="col"></div>
+  </div>
+</form>
+

@@ -4,6 +4,7 @@ import { take } from 'rxjs/operators';
 import { SuperHeroService } from 'src/app/shared/services/super-hero-service.service';
 import { MatDialog } from "@angular/material/dialog";
 import { SureDialogComponent } from 'src/app/shared/components/sure-dialog/sure-dialog.component';
+import { SuperHero } from 'src/app/shared/interfaces/super-hero';
 
 @Component({
   selector: 'app-home',
@@ -11,7 +12,7 @@ import { SureDialogComponent } from 'src/app/shared/components/sure-dialog/sure-
   styleUrls: ['./home.scss']
 })
 export class HomeComponent implements OnInit {
-  public superHeros$ = new Observable<Array<string>>();
+  public superHeros$ = new Observable<Array<SuperHero>>();
 
   constructor(
     private superHeroService: SuperHeroService,
@@ -30,7 +31,6 @@ export class HomeComponent implements OnInit {
     .afterClosed()
     .subscribe((confirmado: Boolean) => {
       if (confirmado) {
-        //Elimina el superheroe
         this.superHeroService.deleteSuperHero(name)
       }
     });

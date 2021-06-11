@@ -1,0 +1,14 @@
+<div class="container mt-5 text-center">
+  <div class="row">
+    <div class="col">
+      <button mat-icon-button color="primary" aria-label="add" [routerLink]="['/']" routerLinkActive="router-link-active" >
+        <mat-icon>keyboard_return</mat-icon> Volver
+      </button>
+    </div>
+    <div class="col">
+      <h1>Introduce un nuevo Super Heroe</h1>
+    </div>
+    <div class="col"></div>
+  </div>
+  <app-superhero-form (nameEvent)="addSuperHero($event)"></app-superhero-form>
+</div>

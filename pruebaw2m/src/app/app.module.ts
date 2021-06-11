@@ -5,7 +5,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatTableModule} from '@angular/material/table';
-import {NgxPaginationModule} from 'ngx-pagination'; // <-- import the module
+import {NgxPaginationModule} from 'ngx-pagination';
 
 @NgModule({
   declarations: [
@@ -16,8 +16,7 @@ import {NgxPaginationModule} from 'ngx-pagination'; // <-- import the module
     AppRoutingModule,
     BrowserAnimationsModule,
     MatTableModule,
-    NgxPaginationModule,
-
+    NgxPaginationModule
   ],
   providers: [],
   bootstrap: [AppComponent]

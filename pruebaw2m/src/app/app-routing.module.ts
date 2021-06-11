@@ -1,12 +1,16 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { HomePageRoutingModule } from './pages/home/home-routing.module';
 
 const routes: Routes = [
   {
     path:
       '',
       loadChildren: () => import('./pages/home/home.module').then(m => m.HomeModule)
+  },
+  {
+    path:
+      'create',
+      loadChildren: () => import('./pages/create-edit-super-hero/create-edit-super-hero.module').then(m => m.CreateEditSuperHeroModule)
   }
 ];
 
