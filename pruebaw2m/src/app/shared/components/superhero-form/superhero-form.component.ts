@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output, Input } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { SuperHero } from '../../interfaces/super-hero';
@@ -10,21 +10,17 @@ import { SuperHero } from '../../interfaces/super-hero';
 })
 export class SuperheroFormComponent implements OnInit {
   @Output() nameEvent = new EventEmitter<SuperHero>();
-  superHero: SuperHero;
+  @Input() superHero: SuperHero;
   form:FormGroup;
+  button="add_circle_outline";
 
   constructor(
     private formBuilder: FormBuilder,
     private route: Router,
-  ) {
-    this.superHero = {
-      id: null,
-      name: "",
-      description: ""
-    }
-  }
+  ) {  }
 
   ngOnInit(): void {
+    this.superHero.name !== ''?this.button='edit':null;
     this.form = this.formBuilder.group({
       name: ['', Validators.required],
       description: ['', Validators.required],

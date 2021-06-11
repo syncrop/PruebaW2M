@@ -6,9 +6,9 @@
       </button>
     </div>
     <div class="col">
-      <h1>Introduce un nuevo Super Heroe</h1>
+      <h1>{{title}}</h1>
     </div>
     <div class="col"></div>
   </div>
-  <app-superhero-form (nameEvent)="addSuperHero($event)"></app-superhero-form>
+  <app-superhero-form (nameEvent)="addSuperHero($event)" [superHero]="superHero"></app-superhero-form>
 </div>

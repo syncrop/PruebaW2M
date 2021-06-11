@@ -31,12 +31,25 @@ export class SuperHeroService {
 
   }
 
-  getSuperHeroById(id:number){
-
+  getSuperHeroById(id:number): SuperHero{
+    let sh:SuperHero[];
+    this.superHeros$.subscribe(
+      resp => sh = resp.filter( e => e.id === id)
+    )
+    return sh[0];
   }
 
-  putSuperHero(){
-
+  putSuperHero(superHero: SuperHero){
+    let newState : Array<SuperHero>;
+    let index:number;
+    this.superHeros$.subscribe(
+      resp => {
+        newState = resp;
+        index = resp.findIndex(item => item.id === superHero.id);
+      }
+      )
+    newState[index] = superHero;
+    this.superHeros.next(newState)
   }
 
   deleteSuperHero(id:number){

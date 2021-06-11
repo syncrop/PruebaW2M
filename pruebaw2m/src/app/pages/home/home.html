@@ -12,14 +12,14 @@
           <thead>
           </thead>
           <tbody>
-            <tr *ngFor="let item of superHero">
-              <td class="col-1 py-3 pointer">
-                <button mat-icon-button class="color-success" aria-label="add" >
+            <tr *ngFor="let item of superHero" >
+              <td class="col-1 pointer">
+                <button [routerLink]="['/edit', item.id]" routerLinkActive="router-link-active"  mat-icon-button class="color-success" aria-label="add" >
                   <mat-icon>edit</mat-icon>
                 </button>
               </td>
-              <td class="col-10 py-3"><h3 class="mb-0">{{item.name}}</h3></td>
-              <td class="col-1 py-2 pointer">
+              <td class="col-10 py-3"><h3 class="mb-0">{{item.name}} </h3><b class="description">{{item.description}}</b></td>
+              <td class="col-1 pointer">
                 <button mat-icon-button color="warn" aria-label="add" (click)="openDialog(item.id)">
                   <mat-icon>delete</mat-icon>
                 </button>
