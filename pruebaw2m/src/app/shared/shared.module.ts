@@ -7,9 +7,10 @@ import { MatButtonModule } from '@angular/material/button';
 import {MatIconModule} from '@angular/material/icon';
 import { SureDialogComponent } from './components/sure-dialog/sure-dialog.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { SearchFilterPipe } from './pipes/search-filter.pipe';
 
 @NgModule({
-  declarations: [SuperheroFormComponent, SureDialogComponent],
+  declarations: [SuperheroFormComponent, SureDialogComponent, SearchFilterPipe],
   imports: [
     CommonModule,
     FormsModule,
@@ -18,7 +19,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     MatIconModule,
     ReactiveFormsModule
   ],
-  exports:[SuperheroFormComponent, SureDialogComponent],
+  exports:[SuperheroFormComponent, SureDialogComponent, SearchFilterPipe],
   providers:[]
 })
 export class SharedModule { }

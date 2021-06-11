@@ -12,15 +12,17 @@ import { SuperHero } from 'src/app/shared/interfaces/super-hero';
   styleUrls: ['./home.scss']
 })
 export class HomeComponent implements OnInit {
-  public superHeros$ = new Observable<Array<SuperHero>>();
+  superHeros$ = new Observable<Array<SuperHero>>();
+  search = "";
 
   constructor(
     private superHeroService: SuperHeroService,
-    public dialog: MatDialog
+    private dialog: MatDialog,
   ){}
 
   ngOnInit():void{
     this.superHeros$ = this.superHeroService.superHeros$;
+
   }
 
   openDialog(id:number):void{
@@ -34,5 +36,15 @@ export class HomeComponent implements OnInit {
         this.superHeroService.deleteSuperHero(id)
       }
     });
+  }
+
+  findValue(){
+    let searchN: number;
+    searchN = +this.search;
+    if(!isNaN(searchN)){
+      this.superHeroService.getSuperHeroById(searchN, true);
+    }else{
+      this.superHeroService.getSuperHerosByValue(this.search);
+    }
   }
 }

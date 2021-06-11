@@ -6,8 +6,18 @@
   </div>
   <div class="row mt-5">
     <div class="col">
-      <h1>SuperHeroes</h1>
-      <ng-container *ngIf="(superHeros$ | async) as superHero">
+      <div class="row">
+        <div class="col-4"></div>
+        <div class="col-4 mt-3"><h1>SuperHeroes</h1></div>
+        <div class="col-4">
+          <mat-form-field appearance="outline">
+            <mat-label>Buscar</mat-label>
+            <input matInput placeholder="Buscar" [(ngModel)]="search"/>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <ng-container *ngIf="(superHeros$ | async | searchFilter: search) as superHero">
         <table class="table table-hover table-bordered">
           <thead>
           </thead>
