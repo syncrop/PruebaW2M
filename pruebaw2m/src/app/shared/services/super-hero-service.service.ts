@@ -39,14 +39,13 @@ export class SuperHeroService {
 
   }
 
-  deleteSuperHero(name:string){
-    // let newState : Array<string>;
-    // let index: number;
-    // this.superHeros$.subscribe(
-    //   resp => newState = resp
-    // );
-    // index = newState.indexOf(name);
-    // newState.splice(index, 1);
-    // this.superHeros.next(newState);
+  deleteSuperHero(id:number){
+    let newState : Array<SuperHero>;
+    let index: number[];
+    this.superHeros$.subscribe(
+      resp => newState = resp
+    );
+    newState = newState.filter(e => e.id!==id);
+    this.superHeros.next(newState);
   }
 }

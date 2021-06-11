@@ -20,7 +20,7 @@
               </td>
               <td class="col-10 py-3"><h3 class="mb-0">{{item.name}}</h3></td>
               <td class="col-1 py-2 pointer">
-                <button mat-icon-button color="warn" aria-label="add" >
+                <button mat-icon-button color="warn" aria-label="add" (click)="openDialog(item.id)">
                   <mat-icon>delete</mat-icon>
                 </button>
               </td>

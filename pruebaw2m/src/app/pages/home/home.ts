@@ -23,7 +23,7 @@ export class HomeComponent implements OnInit {
     this.superHeros$ = this.superHeroService.superHeros$;
   }
 
-  openDialog(name:string):void{
+  openDialog(id:number):void{
     this.dialog
     .open(SureDialogComponent, {
       data: `¿Estas seguro que desea eliminar este super heroe?`
@@ -31,7 +31,7 @@ export class HomeComponent implements OnInit {
     .afterClosed()
     .subscribe((confirmado: Boolean) => {
       if (confirmado) {
-        this.superHeroService.deleteSuperHero(name)
+        this.superHeroService.deleteSuperHero(id)
       }
     });
   }
