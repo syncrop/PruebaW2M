@@ -8,11 +8,19 @@ import { SuperHero } from 'src/app/shared/interfaces/super-hero';
 })
 export class SuperHeroService {
   initialArray:Array<SuperHero>  = [{ id:0, name:'Batman', description:'Hombre murcielago' }, { id:1, name:'Spiderman', description:'Hombre araña' }];
-  private superHeros = new BehaviorSubject<Array<SuperHero>>(this.initialArray);
+  private superHeros: BehaviorSubject<Array<SuperHero>>;
 
-  public superHeros$ = this.superHeros.asObservable();
+  public superHeros$: Observable<SuperHero[]>;
 
-  constructor() {}
+  constructor() {
+    let lc = JSON.parse(localStorage.getItem('superheros'));
+    if(!lc){
+      localStorage.setItem('superheros', JSON.stringify(this.initialArray));
+      lc = this.initialArray;
+    }
+    this.superHeros = new BehaviorSubject<Array<SuperHero>>(lc)
+    this.superHeros$ = this.superHeros.asObservable();
+  }
 
   setSuperHero(superHero: SuperHero){
     let newState : Array<SuperHero>;
@@ -38,6 +46,8 @@ export class SuperHeroService {
     superHero.id = newState[newState.length-1].id+1;
     newState.push(superHero);
     this.superHeros.next(newState);
+
+    localStorage.setItem('superheros', JSON.stringify(newState))
   }
 
 
@@ -50,9 +60,6 @@ export class SuperHeroService {
     this.superHeros$.subscribe(
       resp => sh = resp.filter( e => e.id === id)
     )
-    // if(find){
-    //   this.superHeros.next(sh);
-    // }
     return sh[0];
   }
 
@@ -67,6 +74,7 @@ export class SuperHeroService {
       )
     newState[index] = superHero;
     this.superHeros.next(newState)
+    localStorage.setItem('superheros', JSON.stringify(newState))
   }
 
   deleteSuperHero(id:number){
@@ -77,5 +85,6 @@ export class SuperHeroService {
     );
     newState = newState.filter(e => e.id!==id);
     this.superHeros.next(newState);
+    localStorage.setItem('superheros', JSON.stringify(newState))
   }
 }
