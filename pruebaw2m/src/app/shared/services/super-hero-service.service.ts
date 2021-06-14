@@ -8,7 +8,7 @@ import { SuperHero } from 'src/app/shared/interfaces/super-hero';
 })
 export class SuperHeroService {
   initialArray:Array<SuperHero>  = [{ id:0, name:'Batman', description:'Hombre murcielago' }, { id:1, name:'Spiderman', description:'Hombre araña' }];
-  private superHeros: BehaviorSubject<Array<SuperHero>>;
+  private _superHeros$: BehaviorSubject<Array<SuperHero>>;
 
   public superHeros$: Observable<SuperHero[]>;
 
@@ -18,8 +18,8 @@ export class SuperHeroService {
       localStorage.setItem('superheros', JSON.stringify(this.initialArray));
       lc = this.initialArray;
     }
-    this.superHeros = new BehaviorSubject<Array<SuperHero>>(lc)
-    this.superHeros$ = this.superHeros.asObservable();
+    this._superHeros$ = new BehaviorSubject<Array<SuperHero>>(lc)
+    this.superHeros$ = this._superHeros$.asObservable();
   }
 
   setSuperHero(superHero: SuperHero){
@@ -28,28 +28,20 @@ export class SuperHeroService {
       resp => newState = resp
     );
 
-    // this.loginApiService.login(user, pass).pipe(
-    //   tap(({ token }) => localStorage.setItem('token', token)),
-    //   switchMap(({ token }) => this.userApiService.getUser(token))
-    // ).subscribe(user => console.log(user));
-
     // const suscription = this.superHeros.pipe(
     //   filter(heroes => heroes.length > 0),
     //   map(heroes => heroes.filter(({ id }) => id % 2 === 0)),
     //   tap(result => console.log(result)),
     //   mapTo(null),
     //   switchMap(result => new Observable<string>(observer => observer.next('asdasd')))
-
     // ).subscribe(result => console.log(result));
 
-    const prevHeroes = this.superHeros.getValue();
     superHero.id = newState[newState.length-1].id+1;
     newState.push(superHero);
-    this.superHeros.next(newState);
+    this._superHeros$.next(newState);
 
     localStorage.setItem('superheros', JSON.stringify(newState))
   }
-
 
   getSuperHerosByValue(value:string){
 
@@ -73,7 +65,7 @@ export class SuperHeroService {
       }
       )
     newState[index] = superHero;
-    this.superHeros.next(newState)
+    this._superHeros$.next(newState)
     localStorage.setItem('superheros', JSON.stringify(newState))
   }
 
@@ -84,7 +76,7 @@ export class SuperHeroService {
       resp => newState = resp
     );
     newState = newState.filter(e => e.id!==id);
-    this.superHeros.next(newState);
+    this._superHeros$.next(newState);
     localStorage.setItem('superheros', JSON.stringify(newState))
   }
 }

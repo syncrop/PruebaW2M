@@ -1,11 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { BehaviorSubject, forkJoin, interval, Observable } from 'rxjs';
-import { map, take, tap, withLatestFrom } from 'rxjs/operators';
+import { filter, map, take, tap, withLatestFrom } from 'rxjs/operators';
 import { SuperHeroService } from 'src/app/shared/services/super-hero-service.service';
 import { MatDialog } from "@angular/material/dialog";
 import { SureDialogComponent } from 'src/app/shared/components/sure-dialog/sure-dialog.component';
 import { SuperHero } from 'src/app/shared/interfaces/super-hero';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import {MatPaginatorModule, PageEvent} from '@angular/material/paginator';
+import { keyframes } from '@angular/animations';
 
 @Component({
   selector: 'app-home',
@@ -14,6 +16,13 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 })
 export class HomeComponent implements OnInit {
   superHeros$ = new Observable<Array<SuperHero>>();
+  superHeroLength:number
+  search:string;
+  totalPages: number;
+  currentPage: number = 1;
+  pageEvent: PageEvent;
+
+
   form = this.formBuilder.group({
     filter: ''
   });
@@ -24,47 +33,31 @@ export class HomeComponent implements OnInit {
     private formBuilder: FormBuilder
     ){}
 
-    ngOnInit():void{
-    this.superHeros$ = this.superHeroService.superHeros$;
+  ngOnInit():void{
+    this.getServerData();
+  }
 
-    const pagination$ = this.superHeros$.pipe(
-      map(heros => ({
-        currentPage: 1,
-        totalPages: Math.ceil(heros.length / 10)
-      }))
-    );
+  getServerData(event?:PageEvent){
+    if(event){
+      this.currentPage=event.pageIndex+1
+    }
+    let lastElement = this.currentPage*5;
 
-    this.form.get('filter').valueChanges.subscribe(
-      resp => console.log(resp)
-    )
-
-    pagination$.subscribe(
-      resp => console.log(resp)
-    )
-
-    const heroesToShow$ = this.superHeros$.pipe(
-      withLatestFrom(this.form.get('filter').valueChanges),
-      withLatestFrom(pagination$),
-      map(([heroes, filter]) => {
-        return "hola"
+    this.superHeros$ = this.superHeroService.superHeros$.pipe(
+      // withLatestFrom(this.form.get('filter').valueChanges.pipe(
+      //   map(val => ({name: keyframes, value: val})),
+      //   tap(val => console.log(val))
+      // )),
+      // withLatestFrom(filtro),
+      map((resp) => {
+        // resp = resp.filter(item => item.name.search(new RegExp(search, 'i')) > -1);
+        this.superHeroLength=resp.length;
+        resp = resp.slice(lastElement-5,lastElement);
+        return resp;
       })
     );
 
-    const subscribe = heroesToShow$.subscribe(val => console.log(val))
-
-    const source = interval(5000);
-    //emit every 1s
-    const secondSource = interval(1000);
-    const example = source.pipe(
-      withLatestFrom(secondSource),
-      map(([first, second]) => {
-        return `First Source (5s): ${first} Second Source (1s): ${second}`;
-      })
-    );
-
-    const result = example.subscribe(val => console.log(val));
-
-
+    return event;
   }
 
   openDialog(id:number):void{

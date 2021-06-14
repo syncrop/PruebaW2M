@@ -31,5 +31,4 @@ export class SuperheroFormComponent implements OnInit {
     this.nameEvent.emit(this.superHero);
     this.route.navigateByUrl('/');
   }
-
 }
