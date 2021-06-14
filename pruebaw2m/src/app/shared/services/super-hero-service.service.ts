@@ -7,7 +7,14 @@ import { SuperHero } from 'src/app/shared/interfaces/super-hero';
   providedIn: 'root'
 })
 export class SuperHeroService {
-  initialArray:Array<SuperHero>  = [{ id:0, name:'Batman', description:'Hombre murcielago' }, { id:1, name:'Spiderman', description:'Hombre araña' }];
+  initialArray:Array<SuperHero>  = [
+    { id:0, name:'Batman', description:'Hombre murcielago' },
+    { id:1, name:'Spiderman', description:'Hombre araña' },
+    { id:2, name:'Capitán America', description:'Super soldado americano' },
+    { id:3, name:'Iron Man', description:'Hombre de hierro' },
+    { id:4, name:'Hulk', description:'Cientifico y fundador de los vengadores' },
+    { id:5, name:'Thor', description:'Excelente combatiente cuerpo a cuerpo' },
+  ];
   private _superHeros$: BehaviorSubject<Array<SuperHero>>;
 
   public superHeros$: Observable<SuperHero[]>;
