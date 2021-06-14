@@ -1,14 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { BehaviorSubject, forkJoin, interval, Observable } from 'rxjs';
-import { filter, map, take, tap, withLatestFrom } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+import {  map } from 'rxjs/operators';
 import { SuperHeroService } from 'src/app/shared/services/super-hero-service.service';
 import { MatDialog } from "@angular/material/dialog";
 import { SureDialogComponent } from 'src/app/shared/components/sure-dialog/sure-dialog.component';
 import { SuperHero } from 'src/app/shared/interfaces/super-hero';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import {MatPaginatorModule, PageEvent} from '@angular/material/paginator';
-import { keyframes } from '@angular/animations';
-import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
+import { PageEvent} from '@angular/material/paginator';
+
 
 @Component({
   selector: 'app-home',
@@ -45,12 +44,6 @@ export class HomeComponent implements OnInit {
     let lastElement = this.currentPage*5;
 
     this.superHeros$ = this.superHeroService.superHeros$.pipe(
-      // withLatestFrom(this.form.get('filter').valueChanges.pipe(
-      //   map(val => ({name: keyframes, value: val})),
-      //   tap(val => console.log(val))
-      // )),
-      // withLatestFrom(filtro),
-
       map( heroes => heroes.filter(
         h => {
           let searchN: number;
@@ -62,7 +55,6 @@ export class HomeComponent implements OnInit {
         }
       )),
       map((resp) => {
-        // resp = resp.filter(item => item.name.search(new RegExp(search, 'i')) > -1);
         this.superHeroLength=resp.length;
         resp = resp.slice(lastElement-5,lastElement);
         return resp;

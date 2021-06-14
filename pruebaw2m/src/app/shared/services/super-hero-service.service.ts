@@ -28,23 +28,11 @@ export class SuperHeroService {
       resp => newState = resp
     );
 
-    // const suscription = this.superHeros.pipe(
-    //   filter(heroes => heroes.length > 0),
-    //   map(heroes => heroes.filter(({ id }) => id % 2 === 0)),
-    //   tap(result => console.log(result)),
-    //   mapTo(null),
-    //   switchMap(result => new Observable<string>(observer => observer.next('asdasd')))
-    // ).subscribe(result => console.log(result));
-
     superHero.id = newState[newState.length-1].id+1;
     newState.push(superHero);
     this._superHeros$.next(newState);
 
     localStorage.setItem('superheros', JSON.stringify(newState))
-  }
-
-  getSuperHerosByValue(value:string){
-
   }
 
   getSuperHeroById(id:number, find?:boolean): SuperHero{
@@ -71,7 +59,6 @@ export class SuperHeroService {
 
   deleteSuperHero(id:number){
     let newState : Array<SuperHero>;
-    let index: number[];
     this.superHeros$.subscribe(
       resp => newState = resp
     );
