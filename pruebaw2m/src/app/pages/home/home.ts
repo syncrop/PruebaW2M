@@ -8,6 +8,7 @@ import { SuperHero } from 'src/app/shared/interfaces/super-hero';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import {MatPaginatorModule, PageEvent} from '@angular/material/paginator';
 import { keyframes } from '@angular/animations';
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 
 @Component({
   selector: 'app-home',
@@ -17,7 +18,7 @@ import { keyframes } from '@angular/animations';
 export class HomeComponent implements OnInit {
   superHeros$ = new Observable<Array<SuperHero>>();
   superHeroLength:number
-  search:string;
+  search:string='';
   totalPages: number;
   currentPage: number = 1;
   pageEvent: PageEvent;
@@ -49,6 +50,17 @@ export class HomeComponent implements OnInit {
       //   tap(val => console.log(val))
       // )),
       // withLatestFrom(filtro),
+
+      map( heroes => heroes.filter(
+        h => {
+          let searchN: number;
+          this.search!==''?searchN = +this.search:null;
+          if(!isNaN(searchN)){
+            return h.id===searchN;
+          }
+          return h.name.toLowerCase().includes(this.search.toLowerCase())
+        }
+      )),
       map((resp) => {
         // resp = resp.filter(item => item.name.search(new RegExp(search, 'i')) > -1);
         this.superHeroLength=resp.length;
@@ -71,6 +83,10 @@ export class HomeComponent implements OnInit {
         this.superHeroService.deleteSuperHero(id)
       }
     });
+  }
+
+  keyup(event){
+    this.getServerData()
   }
 
 }

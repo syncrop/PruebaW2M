@@ -13,13 +13,13 @@
           <form [formGroup]="form">
             <mat-form-field appearance="outline">
               <mat-label>Buscar</mat-label>
-              <input matInput placeholder="Buscar" formControlName="filter"/>
+              <input matInput placeholder="Buscar" formControlName="filter" [(ngModel)]="search" (keyup)="keyup($event)"/>
             </mat-form-field>
           </form>
         </div>
       </div>
 
-      <ng-container *ngIf="(superHeros$ | async | searchFilter: search) as superHero">
+      <ng-container *ngIf="(superHeros$ | async) as superHero">
         <table class="table table-hover table-bordered">
           <thead>
           </thead>
