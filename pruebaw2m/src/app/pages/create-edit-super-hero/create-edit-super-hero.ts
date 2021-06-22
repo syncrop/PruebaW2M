@@ -43,7 +43,6 @@ export class CreateEditSuperHeroComponent implements OnInit {
 
 
   addSuperHero(newSuperHero: SuperHero) {
-    console.log(newSuperHero)
     // this.router.url.split('/')[1]==='edit'?this.superHeroService.putSuperHero(newSuperHero):this.superHeroService.setSuperHero(newSuperHero);
     this.router.url.split('/')[1]==='edit'?this.store.dispatch(new UpdateHeroAction(newSuperHero)):this.store.dispatch(new AddHeroAction(newSuperHero));
   }
