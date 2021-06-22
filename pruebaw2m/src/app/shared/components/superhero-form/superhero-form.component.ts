@@ -20,15 +20,16 @@ export class SuperheroFormComponent implements OnInit {
   ) {  }
 
   ngOnInit(): void {
-    this.superHero.name !== ''?this.button='edit':null;
     this.form = this.formBuilder.group({
-      name: ['', Validators.required],
-      description: ['', Validators.required],
-    })
+      id: [ this.superHero.id],
+      name: [ this.superHero.name, Validators.required],
+      description: [this.superHero.description, Validators.required],
+    });
+    this.superHero.name !== ''?this.button='edit':null;
   }
 
   addName(){
-    this.nameEvent.emit(this.superHero);
+    this.nameEvent.emit(this.form.value);
     this.route.navigateByUrl('/');
   }
 }
