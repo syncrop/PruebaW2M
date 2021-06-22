@@ -30,13 +30,26 @@ export function HeroReducer(state: Array<SuperHero> = initialState, action: Hero
       return newList;
 
     case HerosActionTypes.UPDATE_HERO:
-      console.log(HerosActionTypes.UPDATE_HERO);
-      return [...state, action.payload];
+      // const suscription = this.superHeros$.pipe(
+      //   filter(heroes => heroes.length > 0),
+      //   switchMap(heroes => new Observable<SuperHero[]>(obs => {
+      //     let index = heroes.findIndex(item => item.id === superHero.id);
+      //     heroes[index] = superHero;
+      //     return obs.next(heroes);
+      //   })),
+      //   tap(heroes => localStorage.setItem('superheros', JSON.stringify(heroes)))
+      // ).subscribe()
+      newList = state.map(item => item.id===action.payload.id?action.payload:item);
+      localStorage.setItem('superheros', JSON.stringify(newList));
+      return newList;
 
     case HerosActionTypes.DELETE_HERO:
       newList = state.filter(item => item.id !== action.payload);
       localStorage.setItem('superheros', JSON.stringify(newList))
       return newList;
+
+    case HerosActionTypes.GET_HERO:
+      return state.find(item => item.id===action.payload);
 
     default:
       let lc = JSON.parse(localStorage.getItem('superheros'));

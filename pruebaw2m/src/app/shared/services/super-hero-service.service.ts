@@ -43,25 +43,25 @@ export class SuperHeroService {
 
 
 
-  getSuperHeroById(id:number, find?:boolean): SuperHero{
-    let sh:SuperHero[];
-    this.superHeros$.subscribe(
-      resp => sh = resp.filter( e => e.id === id)
-    )
-    return sh[0];
-  }
+  // getSuperHeroById(id:number, find?:boolean): SuperHero{
+  //   let sh:SuperHero[];
+  //   this.superHeros$.subscribe(
+  //     resp => sh = resp.filter( e => e.id === id)
+  //   )
+  //   return sh[0];
+  // }
 
-  putSuperHero(superHero: SuperHero){
-    const suscription = this.superHeros$.pipe(
-      filter(heroes => heroes.length > 0),
-      switchMap(heroes => new Observable<SuperHero[]>(obs => {
-        let index = heroes.findIndex(item => item.id === superHero.id);
-        heroes[index] = superHero;
-        return obs.next(heroes);
-      })),
-      tap(heroes => localStorage.setItem('superheros', JSON.stringify(heroes)))
-    ).subscribe()
-  }
+  // putSuperHero(superHero: SuperHero){
+  //   const suscription = this.superHeros$.pipe(
+  //     filter(heroes => heroes.length > 0),
+  //     switchMap(heroes => new Observable<SuperHero[]>(obs => {
+  //       let index = heroes.findIndex(item => item.id === superHero.id);
+  //       heroes[index] = superHero;
+  //       return obs.next(heroes);
+  //     })),
+  //     tap(heroes => localStorage.setItem('superheros', JSON.stringify(heroes)))
+  //   ).subscribe()
+  // }
 
   // deleteSuperHero(id:number){
   //   // const suscription = this.superHeros$.pipe(
