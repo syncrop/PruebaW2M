@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Store } from '@ngrx/store';
 import { SuperHero } from 'src/app/shared/interfaces/super-hero';
 import { SuperHeroService } from 'src/app/shared/services/super-hero-service.service';
+import { AddHeroAction } from 'src/app/store/actions/heros.action';
+import { AppState } from 'src/app/store/model/app-state.model';
 
 @Component({
   selector: 'app-create-edit-super-hero',
@@ -14,7 +17,8 @@ export class CreateEditSuperHeroComponent implements OnInit {
 
   constructor(
     private superHeroService: SuperHeroService,
-    private router: Router
+    private router: Router,
+    private store: Store<AppState>
   ) {
     this.superHero = {
       id: null,
@@ -33,7 +37,7 @@ export class CreateEditSuperHeroComponent implements OnInit {
 
 
   addSuperHero(newSuperHero: SuperHero) {
-    this.router.url.split('/')[1]==='edit'?this.superHeroService.putSuperHero(newSuperHero):this.superHeroService.setSuperHero(newSuperHero);
+    this.router.url.split('/')[1]==='edit'?this.superHeroService.putSuperHero(newSuperHero):this.store.dispatch(new AddHeroAction(newSuperHero));
   }
 
 }
