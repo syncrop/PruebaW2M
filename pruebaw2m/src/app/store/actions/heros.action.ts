@@ -16,5 +16,15 @@ export class AddHeroAction implements Action {
 export class DeleteHeroAction implements Action {
   readonly type = HerosActionTypes.DELETE_HERO;
 
-  constructor(public payload: string){ }
+  constructor(public payload: SuperHero){ }
 }
+
+export class UpdateHeroAction implements Action {
+  readonly type = HerosActionTypes.UPDATE_HERO;
+
+  constructor(public payload: SuperHero){ }
+}
+
+export type HeroAction = AddHeroAction
+  | DeleteHeroAction
+  | UpdateHeroAction;

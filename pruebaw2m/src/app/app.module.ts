@@ -7,6 +7,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatTableModule} from '@angular/material/table';
 import {NgxPaginationModule} from 'ngx-pagination';
 import { StoreModule } from '@ngrx/store';
+import { HeroReducer } from './store/reducers/heros.reducer';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { StoreModule } from '@ngrx/store';
     AppRoutingModule,
     BrowserAnimationsModule,
     MatTableModule,
-    NgxPaginationModule
+    NgxPaginationModule,
+    StoreModule.forRoot({hero: HeroReducer})
   ],
   providers: [],
   bootstrap: [AppComponent]

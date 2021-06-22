@@ -1,16 +1,12 @@
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { filter, map, mapTo, switchMap, tap } from 'rxjs/operators';
 import { SuperHero } from 'src/app/shared/interfaces/super-hero';
-import { Hero } from 'src/app/store/models/hero.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SuperHeroService {
-  // private HEROS_URL = "http://localhost:3000/heros";
-
   initialArray:Array<SuperHero>  = [
     { id:0, name:'Batman', description:'Hombre murcielago' },
     { id:1, name:'Spiderman', description:'Hombre araña' },
@@ -23,7 +19,7 @@ export class SuperHeroService {
 
   public superHeros$: Observable<SuperHero[]>;
 
-  constructor(private http: HttpClient) {
+  constructor() {
     let lc = JSON.parse(localStorage.getItem('superheros'));
     if(!lc){
       localStorage.setItem('superheros', JSON.stringify(this.initialArray));
@@ -32,10 +28,6 @@ export class SuperHeroService {
     this._superHeros$ = new BehaviorSubject<Array<SuperHero>>(lc)
     this.superHeros$ = this._superHeros$.asObservable();
   }
-
-  // getSuperHeros(){
-  //   return this.http.get<Hero>(this.HEROS_URL);
-  // }
 
   setSuperHero(superHero: SuperHero){
     const suscription = this.superHeros$.pipe(
