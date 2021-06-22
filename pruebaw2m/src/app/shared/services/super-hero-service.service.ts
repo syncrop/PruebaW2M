@@ -29,17 +29,17 @@ export class SuperHeroService {
     this.superHeros$ = this._superHeros$.asObservable();
   }
 
-  setSuperHero(superHero: SuperHero){
-    const suscription = this.superHeros$.pipe(
-      filter(heroes => heroes.length > 0),
-      tap(heroes => superHero.id = heroes[heroes.length-1].id+1),
-      switchMap(heroes => new Observable<SuperHero[]>(obs => {
-        heroes.push(superHero);
-        return obs.next(heroes);
-      })),
-      tap(heroes => localStorage.setItem('superheros', JSON.stringify(heroes)))
-    ).subscribe();
-  }
+  // setSuperHero(superHero: SuperHero){
+  //   const suscription = this.superHeros$.pipe(
+  //     filter(heroes => heroes.length > 0),
+  //     tap(heroes => superHero.id = heroes[heroes.length-1].id+1),
+  //     switchMap(heroes => new Observable<SuperHero[]>(obs => {
+  //       heroes.push(superHero);
+  //       return obs.next(heroes);
+  //     })),
+  //     tap(heroes => localStorage.setItem('superheros', JSON.stringify(heroes)))
+  //   ).subscribe();
+  // }
 
 
 
