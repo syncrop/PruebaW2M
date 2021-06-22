@@ -17,9 +17,10 @@ const initialState: Array<SuperHero> =  [
 ];
 
 export function HeroReducer(state: Array<SuperHero> = initialState, action: HeroAction) {
+  let newList;
   switch(action.type) {
     case HerosActionTypes.ADD_HERO:
-      let newList = [...state,
+      newList = [...state,
         {
           id: state.length,
           name: action.payload.name,
@@ -33,8 +34,9 @@ export function HeroReducer(state: Array<SuperHero> = initialState, action: Hero
       return [...state, action.payload];
 
     case HerosActionTypes.DELETE_HERO:
-      console.log(HerosActionTypes.DELETE_HERO);
-      return [...state, action.payload];
+      newList = state.filter(item => item.id !== action.payload);
+      localStorage.setItem('superheros', JSON.stringify(newList))
+      return newList;
 
     default:
       let lc = JSON.parse(localStorage.getItem('superheros'));

@@ -5,10 +5,11 @@ import { SuperHeroService } from 'src/app/shared/services/super-hero-service.ser
 import { MatDialog } from "@angular/material/dialog";
 import { SureDialogComponent } from 'src/app/shared/components/sure-dialog/sure-dialog.component';
 import { SuperHero } from 'src/app/shared/interfaces/super-hero';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder } from '@angular/forms';
 import { PageEvent} from '@angular/material/paginator';
 import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/store/model/app-state.model';
+import { DeleteHeroAction } from 'src/app/store/actions/heros.action';
 
 
 @Component({
@@ -32,7 +33,7 @@ export class HomeComponent implements OnInit {
   });
 
   constructor(
-    private superHeroService: SuperHeroService,
+    // private superHeroService: SuperHeroService,
     private dialog: MatDialog,
     private formBuilder: FormBuilder,
     private store: Store<AppState>
@@ -40,7 +41,7 @@ export class HomeComponent implements OnInit {
 
   ngOnInit():void{
     this.heroItems$ = this.store.select(store => store.hero);
-    console.log(this.heroItems$)
+    this.superHeros$ = this.heroItems$;
     this.getServerData();
   }
 
@@ -50,7 +51,7 @@ export class HomeComponent implements OnInit {
     }
     let lastElement = this.currentPage*5;
 
-    this.superHeros$ = this.superHeroService.superHeros$.pipe(
+    this.superHeros$ = this.heroItems$.pipe(
       map( heroes => heroes.filter(
         h => {
           let searchN: number;
@@ -79,7 +80,8 @@ export class HomeComponent implements OnInit {
     .afterClosed()
     .subscribe((confirmado: Boolean) => {
       if (confirmado) {
-        this.superHeroService.deleteSuperHero(id)
+        // this.superHeroService.deleteSuperHero(id)
+        this.store.dispatch(new DeleteHeroAction(id));
       }
     });
   }
