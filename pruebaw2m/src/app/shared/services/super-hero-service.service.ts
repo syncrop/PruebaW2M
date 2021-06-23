@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { filter, map, mapTo, switchMap, tap } from 'rxjs/operators';
@@ -18,6 +19,8 @@ export class SuperHeroService {
   private _superHeros$: BehaviorSubject<Array<SuperHero>>;
 
   public superHeros$: Observable<SuperHero[]>;
+
+  constructor(private http: HttpClient){}
 
   // constructor() {
   //   let lc = JSON.parse(localStorage.getItem('superheros'));
@@ -40,6 +43,9 @@ export class SuperHeroService {
   //     tap(heroes => localStorage.setItem('superheros', JSON.stringify(heroes)))
   //   ).subscribe();
   // }
+  setSuperHero(superHero: SuperHero){
+    return this.http.post<SuperHero>('', superHero);
+  }
 
 
 
