@@ -33,7 +33,6 @@ export class CreateEditSuperHeroComponent implements OnInit {
     if(this.router.url.split('/')[1]==='edit'){
       let id = +this.router.url.split('/')[2];
       this.title = 'Editar Super Heroe';
-      // this.superHero = this.superHeroService.getSuperHeroById(id);
       this.superHero$ = this.store.select(store => store.hero.list.find(item => item.id === id));
       this.superHero$.subscribe(
         resp => this.superHero = resp
@@ -44,7 +43,7 @@ export class CreateEditSuperHeroComponent implements OnInit {
 
   addSuperHero(newSuperHero: SuperHero) {
     // this.router.url.split('/')[1]==='edit'?this.superHeroService.putSuperHero(newSuperHero):this.superHeroService.setSuperHero(newSuperHero);
-    // this.router.url.split('/')[1]==='edit'?this.store.dispatch(new UpdateHeroAction(newSuperHero)):this.store.dispatch(new AddHeroAction(newSuperHero));
+    this.router.url.split('/')[1]==='edit'?this.store.dispatch(new UpdateHeroAction(newSuperHero)):this.store.dispatch(new AddHeroAction(newSuperHero));
   }
 
 }

@@ -18,7 +18,7 @@ export class HeroService {
     return this.http.post(this.HERO_URL, HeroItem);
   }
 
-  deleteHeroItem(id: string) {
+  deleteHeroItem(id: number) {
     return this.http.delete(`${this.HERO_URL}/${id}`);
   }
 }

@@ -33,7 +33,6 @@ export class HomeComponent implements OnInit {
   });
 
   constructor(
-    // private superHeroService: SuperHeroService,
     private dialog: MatDialog,
     private formBuilder: FormBuilder,
     private store: Store<AppState>
@@ -43,7 +42,7 @@ export class HomeComponent implements OnInit {
     this.heroItems$ = this.store.select(store => store.hero.list);
     this.superHeros$ = this.heroItems$;
     this.store.dispatch(new GetHeroAction());
-    // this.getServerData();
+    this.getServerData();
   }
 
   getServerData(event?:PageEvent){
@@ -53,16 +52,18 @@ export class HomeComponent implements OnInit {
     let lastElement = this.currentPage*5;
 
     this.superHeros$ = this.heroItems$.pipe(
-      map( heroes => heroes.filter(
-        h => {
-          let searchN: number;
-          this.search!==''?searchN = +this.search:null;
-          if(!isNaN(searchN)){
-            return h.id===searchN;
-          }
-          return h.name.toLowerCase().includes(this.search.toLowerCase())
-        }
-      )),
+      map( heroes =>
+          heroes.filter(
+            h => {
+              let searchN: number;
+              this.search!==''?searchN = +this.search:null;
+              if(!isNaN(searchN)){
+                return h.id===searchN;
+              }
+              return h.name.toLowerCase().includes(this.search.toLowerCase())
+            }
+          )
+        ),
       map((resp) => {
         this.superHeroLength=resp.length;
         resp = resp.slice(lastElement-5,lastElement);

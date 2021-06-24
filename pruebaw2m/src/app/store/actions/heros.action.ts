@@ -17,6 +17,8 @@ export enum HerosActionTypes {
 }
 export class AddHeroAction implements Action {
   readonly type = HerosActionTypes.ADD_HERO;
+
+  constructor(public payload: SuperHero){ }
 }
 export class AddHeroSuccessAction implements Action {
   readonly type = HerosActionTypes.ADD_HERO_SUCCESS;
