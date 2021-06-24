@@ -54,7 +54,7 @@ export function HeroReducer(state: Array<SuperHero> = initialState, action: Hero
     default:
       let lc = JSON.parse(localStorage.getItem('superheros'));
       if(!lc){
-        localStorage.setItem('superheros', JSON.stringify(this.initialArray));
+        localStorage.setItem('superheros', JSON.stringify(initialState));
         lc = initialState;
       }
       state = lc;
