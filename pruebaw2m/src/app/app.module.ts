@@ -10,6 +10,7 @@ import { StoreModule } from '@ngrx/store';
 import { HeroReducer } from './store/reducers/heros.reducer';
 import { EffectsModule } from '@ngrx/effects';
 import { HerosEffect } from './store/effects/heros.effect';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -21,6 +22,7 @@ import { HerosEffect } from './store/effects/heros.effect';
     BrowserAnimationsModule,
     MatTableModule,
     NgxPaginationModule,
+    HttpClientModule,
     StoreModule.forRoot({hero: HeroReducer})
   ],
   providers: [],
