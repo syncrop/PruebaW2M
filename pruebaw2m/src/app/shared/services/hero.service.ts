@@ -18,6 +18,10 @@ export class HeroService {
     return this.http.post(this.HERO_URL, HeroItem);
   }
 
+  updateHeroItem(HeroItem: SuperHero) {
+    return this.http.put(`${this.HERO_URL}/${HeroItem.id}`, HeroItem);
+  }
+
   deleteHeroItem(id: number) {
     return this.http.delete(`${this.HERO_URL}/${id}`);
   }

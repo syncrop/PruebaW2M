@@ -63,6 +63,16 @@ export class UpdateHeroAction implements Action {
 
   constructor(public payload: SuperHero){ }
 }
+export class UpdateHeroSuccessAction implements Action {
+  readonly type = HerosActionTypes.UPDATE_HERO_SUCCESS;
+
+  constructor(public payload: SuperHero){ }
+}
+export class UpdateHeroFailureAction implements Action {
+  readonly type = HerosActionTypes.UPDATE_HERO_FAILURE;
+
+  constructor(public payload: Error){ }
+}
 
 export type HeroAction = AddHeroAction
   | AddHeroSuccessAction
@@ -71,6 +81,8 @@ export type HeroAction = AddHeroAction
   | DeleteHeroSuccessAction
   | DeleteHeroFailureAction
   | UpdateHeroAction
+  | UpdateHeroSuccessAction
+  | UpdateHeroFailureAction
   | GetHeroAction
   | GetHeroSuccessAction
   | GetHeroFailureAction;

@@ -18,7 +18,6 @@ export class CreateEditSuperHeroComponent implements OnInit {
   superHero$: Observable<SuperHero>;
 
   constructor(
-    private superHeroService: SuperHeroService,
     private router: Router,
     private store: Store<AppState>
   ) {
@@ -42,7 +41,6 @@ export class CreateEditSuperHeroComponent implements OnInit {
 
 
   addSuperHero(newSuperHero: SuperHero) {
-    // this.router.url.split('/')[1]==='edit'?this.superHeroService.putSuperHero(newSuperHero):this.superHeroService.setSuperHero(newSuperHero);
     this.router.url.split('/')[1]==='edit'?this.store.dispatch(new UpdateHeroAction(newSuperHero)):this.store.dispatch(new AddHeroAction(newSuperHero));
   }
 

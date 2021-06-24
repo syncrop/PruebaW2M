@@ -3,7 +3,7 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { of } from "rxjs";
 import { catchError, map, mergeMap } from "rxjs/operators";
 import { HeroService } from "src/app/shared/services/hero.service";
-import { AddHeroAction, AddHeroFailureAction, AddHeroSuccessAction, DeleteHeroAction, DeleteHeroFailureAction, DeleteHeroSuccessAction, GetHeroAction, GetHeroFailureAction, GetHeroSuccessAction, HerosActionTypes } from "../actions/heros.action";
+import { AddHeroAction, AddHeroFailureAction, AddHeroSuccessAction, DeleteHeroAction, DeleteHeroFailureAction, DeleteHeroSuccessAction, GetHeroAction, GetHeroFailureAction, GetHeroSuccessAction, HerosActionTypes, UpdateHeroAction, UpdateHeroFailureAction, UpdateHeroSuccessAction } from "../actions/heros.action";
 
 @Injectable()
 export class HerosEffect {
@@ -26,6 +26,16 @@ export class HerosEffect {
       (data) => this.heroService.addHeroItem(data.payload).pipe(
         map(() => new AddHeroSuccessAction(data.payload)),
         catchError(error => of(new AddHeroFailureAction(error)))
+      )
+    )
+  ))
+
+  updateHero$ = createEffect(() => this.actions$.pipe(
+    ofType<UpdateHeroAction>(HerosActionTypes.UPDATE_HERO),
+    mergeMap(
+      (data) => this.heroService.updateHeroItem(data.payload).pipe(
+        map(() => new UpdateHeroSuccessAction(data.payload)),
+        catchError(error => of(new UpdateHeroFailureAction(error)))
       )
     )
   ))

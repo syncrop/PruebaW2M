@@ -33,13 +33,6 @@ export function HeroReducer(state: HeroState = initialState, action: HeroAction)
         loading: false
       };
     case HerosActionTypes.ADD_HERO:
-      // newList = [...state,
-      //   {
-      //     id: state.length,
-      //     name: action.payload.name,
-      //     description: action.payload.description
-      //   }];
-      // localStorage.setItem('superheros', JSON.stringify(newList))
       return {
         ...state,
         loading: true
@@ -58,22 +51,36 @@ export function HeroReducer(state: HeroState = initialState, action: HeroAction)
       };
 
 
-    // case HerosActionTypes.UPDATE_HERO:
-    //   // const suscription = this.superHeros$.pipe(
-    //   //   filter(heroes => heroes.length > 0),
-    //   //   switchMap(heroes => new Observable<SuperHero[]>(obs => {
-    //   //     let index = heroes.findIndex(item => item.id === superHero.id);
-    //   //     heroes[index] = superHero;
-    //   //     return obs.next(heroes);
-    //   //   })),
-    //   //   tap(heroes => localStorage.setItem('superheros', JSON.stringify(heroes)))
-    //   // ).subscribe()
-    //   newList = state.map(item => item.id===action.payload.id?action.payload:item);
-    //   localStorage.setItem('superheros', JSON.stringify(newList));
-    //   return newList;
+    case HerosActionTypes.UPDATE_HERO:
+      // const suscription = this.superHeros$.pipe(
+      //   filter(heroes => heroes.length > 0),
+      //   switchMap(heroes => new Observable<SuperHero[]>(obs => {
+      //     let index = heroes.findIndex(item => item.id === superHero.id);
+      //     heroes[index] = superHero;
+      //     return obs.next(heroes);
+      //   })),
+      //   tap(heroes => localStorage.setItem('superheros', JSON.stringify(heroes)))
+      // ).subscribe()
+      // newList = state.map(item => item.id===action.payload.id?action.payload:item);
+      // localStorage.setItem('superheros', JSON.stringify(newList));
+      return {
+        ...state,
+        loading: true
+      };
+    case HerosActionTypes.UPDATE_HERO_SUCCESS:
+      return {
+        ...state,
+        list: action.payload,
+        loading: false
+      };
+    case HerosActionTypes.UPDATE_HERO_FAILURE:
+      return {
+        ...state,
+        error: action.payload,
+        loading: false
+      };
 
     case HerosActionTypes.DELETE_HERO:
-      // newList = state.filter(item => item.id !== action.payload);
       // localStorage.setItem('superheros', JSON.stringify(newList))
       return {
         ...state,
