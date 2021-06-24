@@ -9,7 +9,7 @@ import { FormBuilder } from '@angular/forms';
 import { PageEvent} from '@angular/material/paginator';
 import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/store/model/app-state.model';
-import { DeleteHeroAction } from 'src/app/store/actions/heros.action';
+import { DeleteHeroAction, GetHeroAction } from 'src/app/store/actions/heros.action';
 
 
 @Component({
@@ -40,9 +40,10 @@ export class HomeComponent implements OnInit {
     ){}
 
   ngOnInit():void{
-    this.heroItems$ = this.store.select(store => store.hero);
+    this.heroItems$ = this.store.select(store => store.hero.list);
     this.superHeros$ = this.heroItems$;
-    this.getServerData();
+    this.store.dispatch(new GetHeroAction());
+    // this.getServerData();
   }
 
   getServerData(event?:PageEvent){
