@@ -9,11 +9,6 @@ export class HerosEffect {
 
   constructor(private actions$: Actions, private superHeroService: SuperHeroService){ }
 
-  addHeroItem$ = createEffect(
-    () => this.actions$.pipe(
-      ofType<AddHeroAction>(HerosActionTypes.ADD_HERO),
-      mergeMap((data) => )
-    )
-  );
+
 
 }

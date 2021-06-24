@@ -21,8 +21,7 @@ import { HerosEffect } from './store/effects/heros.effect';
     BrowserAnimationsModule,
     MatTableModule,
     NgxPaginationModule,
-    StoreModule.forRoot({hero: HeroReducer}),
-    EffectsModule.forRoot([HerosEffect])
+    StoreModule.forRoot({hero: HeroReducer})
   ],
   providers: [],
   bootstrap: [AppComponent]
