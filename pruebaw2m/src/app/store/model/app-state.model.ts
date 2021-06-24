@@ -1,5 +1,5 @@
-import { SuperHero } from "src/app/shared/interfaces/super-hero";
+import { HeroState } from "../reducers/heros.reducer";
 
 export interface AppState {
-  readonly hero: Array<SuperHero>
+  readonly hero: HeroState
 };
