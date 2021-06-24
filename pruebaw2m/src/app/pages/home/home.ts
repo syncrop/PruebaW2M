@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import {  map } from 'rxjs/operators';
+import {  delay, map, tap } from 'rxjs/operators';
 // import { SuperHeroService } from 'src/app/shared/services/super-hero-service.service';
 import { MatDialog } from "@angular/material/dialog";
 import { SureDialogComponent } from 'src/app/shared/components/sure-dialog/sure-dialog.component';
@@ -26,6 +26,7 @@ export class HomeComponent implements OnInit {
   pageEvent: PageEvent;
 
   heroItems$: Observable<Array<SuperHero>>;
+  loading$: Observable<Boolean>;
 
 
   form = this.formBuilder.group({
@@ -39,18 +40,20 @@ export class HomeComponent implements OnInit {
     ){}
 
   ngOnInit():void{
-    this.heroItems$ = this.store.select(store => store.hero.list);
+    this.heroItems$ = this.store.select(store => store.hero.list).pipe(tap(data => console.log(data)));
+    this.loading$ = this.store.select(store => store.hero.loading);
     this.superHeros$ = this.heroItems$;
     this.store.dispatch(new GetHeroAction());
+
     this.getServerData();
   }
 
   getServerData(event?:PageEvent){
+
     if(event){
       this.currentPage=event.pageIndex+1
     }
     let lastElement = this.currentPage*5;
-
     this.superHeros$ = this.heroItems$.pipe(
       map( heroes =>
           heroes.filter(
@@ -82,7 +85,6 @@ export class HomeComponent implements OnInit {
     .afterClosed()
     .subscribe((confirmado: Boolean) => {
       if (confirmado) {
-        // this.superHeroService.deleteSuperHero(id)
         this.store.dispatch(new DeleteHeroAction(id));
       }
     });

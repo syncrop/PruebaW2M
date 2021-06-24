@@ -40,7 +40,6 @@ export function HeroReducer(state: HeroState = initialState, action: HeroAction)
     case HerosActionTypes.ADD_HERO_SUCCESS:
       return {
         ...state,
-        list: action.payload,
         loading: false
       };
     case HerosActionTypes.ADD_HERO_FAILURE:
@@ -70,7 +69,6 @@ export function HeroReducer(state: HeroState = initialState, action: HeroAction)
     case HerosActionTypes.UPDATE_HERO_SUCCESS:
       return {
         ...state,
-        list: action.payload,
         loading: false
       };
     case HerosActionTypes.UPDATE_HERO_FAILURE:

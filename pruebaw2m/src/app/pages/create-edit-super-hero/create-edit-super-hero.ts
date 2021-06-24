@@ -6,6 +6,7 @@ import { SuperHeroService } from 'src/app/shared/services/super-hero-service.ser
 import { AddHeroAction, GetHeroAction, UpdateHeroAction } from 'src/app/store/actions/heros.action';
 import { AppState } from 'src/app/store/model/app-state.model';
 import { Observable } from 'rxjs';
+import { tap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-create-edit-super-hero',
@@ -41,7 +42,14 @@ export class CreateEditSuperHeroComponent implements OnInit {
 
 
   addSuperHero(newSuperHero: SuperHero) {
+    let aux:number;
+    this.store.select(store => store.hero.list).pipe(tap(data => aux=data.length));
+    this.store.dispatch(new GetHeroAction());
+    newSuperHero.id = aux;
     this.router.url.split('/')[1]==='edit'?this.store.dispatch(new UpdateHeroAction(newSuperHero)):this.store.dispatch(new AddHeroAction(newSuperHero));
+    this.store.select(store => store.hero.list).pipe(tap(data => console.log(data)));
+    this.store.dispatch(new GetHeroAction());
+
   }
 
 }

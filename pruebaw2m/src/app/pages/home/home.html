@@ -19,7 +19,7 @@
         </div>
       </div>
 
-      <ng-container *ngIf="(superHeros$ | async) as superHero">
+      <ng-container *ngIf=" (superHeros$ | async) as superHero">
         <table class="table table-hover table-bordered">
           <thead>
           </thead>
@@ -39,7 +39,7 @@
             </tr>
           </tbody>
         </table>
-        <mat-paginator [length]="superHeroLength"
+        <mat-paginator  [length]="superHeroLength"
               [pageSize]="5"
               (page)="pageEvent = getServerData($event)">
         </mat-paginator>
