@@ -23,7 +23,8 @@ import { HttpClientModule } from '@angular/common/http';
     MatTableModule,
     NgxPaginationModule,
     HttpClientModule,
-    StoreModule.forRoot({hero: HeroReducer})
+    StoreModule.forRoot({hero: HeroReducer}),
+    EffectsModule.forRoot([HerosEffect])
   ],
   providers: [],
   bootstrap: [AppComponent]
