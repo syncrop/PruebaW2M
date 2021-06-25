@@ -10,5 +10,7 @@
     </div>
     <div class="col"></div>
   </div>
-  <app-superhero-form (nameEvent)="addSuperHero($event)" [superHero]="superHero"></app-superhero-form>
+  <app-superhero-form *ngIf="superHero" (nameEvent)="addSuperHero($event)" [superHero]="superHero"></app-superhero-form>
+  <div *ngIf="!superHero" class="spinner-border text-secondary" role="status">
+  </div>
 </div>

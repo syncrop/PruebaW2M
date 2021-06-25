@@ -51,17 +51,6 @@ export function HeroReducer(state: HeroState = initialState, action: HeroAction)
 
 
     case HerosActionTypes.UPDATE_HERO:
-      // const suscription = this.superHeros$.pipe(
-      //   filter(heroes => heroes.length > 0),
-      //   switchMap(heroes => new Observable<SuperHero[]>(obs => {
-      //     let index = heroes.findIndex(item => item.id === superHero.id);
-      //     heroes[index] = superHero;
-      //     return obs.next(heroes);
-      //   })),
-      //   tap(heroes => localStorage.setItem('superheros', JSON.stringify(heroes)))
-      // ).subscribe()
-      // newList = state.map(item => item.id===action.payload.id?action.payload:item);
-      // localStorage.setItem('superheros', JSON.stringify(newList));
       return {
         ...state,
         loading: true
@@ -79,7 +68,6 @@ export function HeroReducer(state: HeroState = initialState, action: HeroAction)
       };
 
     case HerosActionTypes.DELETE_HERO:
-      // localStorage.setItem('superheros', JSON.stringify(newList))
       return {
         ...state,
         loading: true
@@ -97,16 +85,7 @@ export function HeroReducer(state: HeroState = initialState, action: HeroAction)
         loading: false
       };
 
-    // case HerosActionTypes.GET_HERO:
-    //   return state.find(item => item.id===action.payload);
-
     default:
-      // let lc = JSON.parse(localStorage.getItem('superheros'));
-      // if(!lc){
-      //   localStorage.setItem('superheros', JSON.stringify(initialState));
-      //   lc = initialState;
-      // }
-      // state = lc;
       return state;
   }
 }

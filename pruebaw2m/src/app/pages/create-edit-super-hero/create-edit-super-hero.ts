@@ -17,6 +17,7 @@ export class CreateEditSuperHeroComponent implements OnInit {
   title: string = "Introduce un nuevo Super Heroe";
   superHero: SuperHero;
   superHero$: Observable<SuperHero>;
+  id:number = null;
 
   constructor(
     private router: Router,
@@ -31,21 +32,19 @@ export class CreateEditSuperHeroComponent implements OnInit {
 
   ngOnInit(): void {
     if(this.router.url.split('/')[1]==='edit'){
-      let id = +this.router.url.split('/')[2];
+      this.id = +this.router.url.split('/')[2];
       this.title = 'Editar Super Heroe';
-      this.superHero$ = this.store.select(store => store.hero.list.find(item => item.id === id));
-      this.superHero$.subscribe(
-        resp => this.superHero = resp
-      )
+      this.superHero$ = this.store.select(store => store.hero.list.find(item => item.id === this.id));
+      this.store.dispatch(new GetHeroAction());
+      this.superHero$.pipe(
+        tap(data => this.superHero=data)
+      ).subscribe()
     }
   }
 
 
   addSuperHero(newSuperHero: SuperHero) {
-    let aux:number;
-    this.store.select(store => store.hero.list).pipe(tap(data => aux=data.length));
-    this.store.dispatch(new GetHeroAction());
-    newSuperHero.id = aux;
+    this.id===null?newSuperHero.id = null:newSuperHero.id=this.id;
     this.router.url.split('/')[1]==='edit'?this.store.dispatch(new UpdateHeroAction(newSuperHero)):this.store.dispatch(new AddHeroAction(newSuperHero));
     this.store.select(store => store.hero.list).pipe(tap(data => console.log(data)));
     this.store.dispatch(new GetHeroAction());

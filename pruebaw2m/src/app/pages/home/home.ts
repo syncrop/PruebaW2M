@@ -40,7 +40,7 @@ export class HomeComponent implements OnInit {
     ){}
 
   ngOnInit():void{
-    this.heroItems$ = this.store.select(store => store.hero.list).pipe(tap(data => console.log(data)));
+    this.heroItems$ = this.store.select(store => store.hero.list);
     this.loading$ = this.store.select(store => store.hero.loading);
     this.superHeros$ = this.heroItems$;
     this.store.dispatch(new GetHeroAction());
